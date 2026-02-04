@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Quản lý Sản Phẩm</h2>
+
+    <div class="row mb-3 align-items-center">
+        <div class="col-md-4">
+            <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm theo tiêu đề...">
+        </div>
+        <div class="col-md-8 text-end">
+            <button class="btn btn-success" onclick="openCreateModal()">
+                <i class="fa-solid fa-plus"></i> Tạo mới
+            </button>
+            <button class="btn btn-primary" onclick="exportToCSV()">
+                <i class="fa-solid fa-file-csv"></i> Export CSV
+            </button>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between mb-2">
+        <div>
+            <label>Hiển thị: </label>
+            <select id="pageSizeSelect" class="form-select d-inline-block w-auto" onchange="changePageSize()">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th class="sortable" onclick="handleSort('title')">Title <i class="fa-solid fa-sort"></i></th>
+                <th class="sortable" onclick="handleSort('price')">Price <i class="fa-solid fa-sort"></i></th>
+                <th>Category</th>
+                <th>Image</th>
+            </tr>
+            </thead>
+            <tbody id="productTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <nav>
+        <ul class="pagination justify-content-center" id="pagination">
+        </ul>
+    </nav>
+</div>
+
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Chi tiết sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="productForm">
+                    <input type="hidden" id="productId">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" id="productTitle" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Price</label>
+                        <input type="number" class="form-control" id="productPrice" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" id="productDescription" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Category ID (Số nguyên)</label>
+                        <input type="number" class="form-control" id="productCategoryId" value="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Image URL</label>
+                        <input type="text" class="form-control" id="productImage" placeholder="https://...">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-warning" id="btnEdit" onclick="enableEditMode()">Sửa</button>
+                <button type="button" class="btn btn-primary d-none" id="btnSave" onclick="saveProduct()">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="script.js"></script>
+</body>
+</html>

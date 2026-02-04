@@ -1,0 +1,28 @@
+/* Style cho ảnh thumbnail trong bảng */
+.product-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Hiệu ứng con trỏ khi di vào header để sắp xếp */
+.sortable {
+    cursor: pointer;
+}
+.sortable:hover {
+    background-color: #444 !important;
+}
+
+/* Hiệu ứng khi di chuột vào dòng trong bảng */
+tbody tr {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* Tooltip hiển thị description (mặc định trình duyệt hỗ trợ title attribute,
+   nhưng CSS này giúp dòng không bị vỡ nếu text quá dài) */
+td {
+    vertical-align: middle;
+}
